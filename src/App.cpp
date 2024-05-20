@@ -28,13 +28,13 @@ App::~App()
 {
 }
 
-void App::Init(std::wstring&& cmd)
+void App::Init(std::string&& cmd)
 {
     fontMgr = SkFontMgr_New_GDI();
     initFontText();
     initFontIcon();
-    auto foundPos = cmd.find(L"--pin:clipboard");
-    if (foundPos != std::wstring::npos) {
+    auto foundPos = cmd.find("--pin:clipboard");
+    if (foundPos != std::string::npos) {
         pinClipboard();
     }
     else {

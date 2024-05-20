@@ -1,9 +1,15 @@
+﻿#include <QApplication>
+
 #include <Windows.h>
 #include "include/core/SkGraphics.h"
 #include "App.h"
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPTSTR lpCmdLine, _In_ int nCmdShow)
+int main(int argc, char* argv[])
 {
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    QApplication a(argc, argv);
+
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
     if (FAILED(hr))
     {
@@ -11,15 +17,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
         return -1;
     }
     SkGraphics::Init();
-    App::Init(std::wstring(lpCmdLine));
-    MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
+    App::Init(std::string(*argv));
+    a.exec();
     App::Dispose();
     CoUninitialize();
     auto code = App::GetExitCode();
+
     return code;
 }

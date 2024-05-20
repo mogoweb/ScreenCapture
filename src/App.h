@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include "include/core/SkFont.h"
 class WindowBase;
@@ -6,7 +6,7 @@ class App
 {
 public:
     ~App();
-    static void Init(std::wstring&& cmd);
+    static void Init(std::string&& cmd);
     static void Dispose();
     static void Quit(const int& code);
     static WindowBase* GetWin();
